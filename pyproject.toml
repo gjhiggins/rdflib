@@ -51,6 +51,7 @@ html5rdf = {version = ">=1.2,<2", optional = true}
 lxml = {version = ">=4.3,<6.0", optional = true}
 orjson = {version = ">=3.9.14,<4", optional = true}
 httpx = {version = "^0.28.1", optional = true}
+pyoxigraph = {version = "^0.5.6", optional = true }
 
 [tool.poetry.group.dev.dependencies]
 black = "24.8.0"
