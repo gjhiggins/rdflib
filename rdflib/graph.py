@@ -295,6 +295,7 @@ from typing import (
     cast,
     overload,
 )
+from typing import Literal as TypingLiteral
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 
@@ -2108,6 +2109,52 @@ class Graph(Node):
         add_to_cbd(resource)
 
         return subgraph
+
+    def expand(
+        self,
+        expansion_logic: TypingLiteral["RDFS", "OWLRL", "SPARQLRULES"] = "RDFS",
+        in_place:bool = True
+    ) -> None|Graph:
+        """Expands a graph using RDFS semantics, OWL's 'RL' profile or a given rule set - not yet supported
+
+        If used against a readl-only graph, in_place will be understood to be False.
+        """
+
+        def is_read_only(g: Graph) -> bool:
+            """Checks to see if the Graph is read-only"""
+            test_triple = (URIRef("urn:test:s"), URIRef("urn:test:p"), URIRef("urn:test:o"))
+
+            try:
+                g.add(test_triple)
+                g.remove(test_triple)
+                return False
+            except Exception:
+                return True
+
+        ExpansionLogic = ["RDFS", "OWLRL", "SPARQLRULES"]
+        from rdflib.inference import DeductiveClosure, RDFS_Semantics, OWLRL_Semantics
+
+        if expansion_logic not in ExpansionLogic:
+            raise ValueError(f"Expansion logic {expansion_logic} not supported. Must be one of {', '.join(ExpansionLogic)}.")
+        if expansion_logic == "SPARQLRULES":
+            raise NotImplementedError("Sorry, SPARQLRULES are not yet implemented as an expansion logic")
+
+        if not isinstance(in_place, bool):
+            raise ValueError("'in_place' must be a boolean True or False value")
+
+        selected_expansion_logic = {
+            "RDFS": RDFS_Semantics,
+            "OWLRL": OWLRL_Semantics,
+        }
+
+        if not in_place or is_read_only(self):
+            new_g = Graph()
+            for t in self.triples((None, None, None)):
+                new_g.add(t)
+            DeductiveClosure(selected_expansion_logic[expansion_logic]).expand(new_g)
+            return new_g
+        else:
+            DeductiveClosure(selected_expansion_logic[expansion_logic]).expand(self)
 
 
 _ContextType = Graph
