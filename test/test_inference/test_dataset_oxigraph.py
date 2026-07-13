@@ -24,18 +24,20 @@ def test_dataset():
     # count no. rels:Person class instances, no inferencing, should find 14 results (one Child)
     cnt = 0
 
-
-    person_instances = s.quads_for_pattern(None, NamedNode(RDF.type), NamedNode(RELS.Person), None)
+    person_instances = s.quads_for_pattern(
+        None, NamedNode(RDF.type), NamedNode(RELS.Person), None
+    )
     for _ in person_instances:
         cnt += 1
 
     assert cnt == 14
 
-
     dest_uri = NamedNode("urn:test:dest")
     # count no. of hasGrandparent predicates, no inferencing, should find 0 results
     cnt = 0
-    has_grandparent_predicates = s.quads_for_pattern(None, NamedNode(RELS.hasGrandparent), None, dest_uri)
+    has_grandparent_predicates = s.quads_for_pattern(
+        None, NamedNode(RELS.hasGrandparent), None, dest_uri
+    )
     for _ in has_grandparent_predicates:
         cnt += 1
     assert cnt == 0
@@ -45,7 +47,9 @@ def test_dataset():
 
     # count no. rels:Person class instances, after inferencing, should find 1 result in the Dest graph
     cnt = 0
-    has_person_instances = s.quads_for_pattern(None, NamedNode(RDF.type), NamedNode(RELS.Person), dest_uri)
+    has_person_instances = s.quads_for_pattern(
+        None, NamedNode(RDF.type), NamedNode(RELS.Person), dest_uri
+    )
     for _ in has_person_instances:
         cnt += 1
 
@@ -53,7 +57,9 @@ def test_dataset():
 
     # count no. rels:Person class instances, after inferencing, should find 15 results in the whole dataset
     cnt = 0
-    has_person_instances = s.quads_for_pattern(None, NamedNode(RDF.type), NamedNode(RELS.Person), None)
+    has_person_instances = s.quads_for_pattern(
+        None, NamedNode(RDF.type), NamedNode(RELS.Person), None
+    )
     for _ in has_person_instances:
         cnt += 1
 
@@ -61,21 +67,27 @@ def test_dataset():
 
     # count no. of hasGrandparent predicates, after inferencing, should find 7 results in the Dest graph
     cnt = 0
-    has_grandparent_predicates = s.quads_for_pattern(None, NamedNode(RELS.hasGrandparent), None, dest_uri)
+    has_grandparent_predicates = s.quads_for_pattern(
+        None, NamedNode(RELS.hasGrandparent), None, dest_uri
+    )
     for _ in has_grandparent_predicates:
         cnt += 1
     assert cnt == 7
 
     # count no. of hasGrandparent predicates, after inferencing, should find 7 results in the whole dataset
     cnt = 0
-    has_grandparent_predicates = s.quads_for_pattern(None, NamedNode(RELS.hasGrandparent), None, None)
+    has_grandparent_predicates = s.quads_for_pattern(
+        None, NamedNode(RELS.hasGrandparent), None, None
+    )
     for _ in has_grandparent_predicates:
         cnt += 1
     assert cnt == 7
 
     # count no. of hasGrandparent predicates, after inferencing, should find 0 results in the default graph
     cnt = 0
-    has_grandparent_predicates = s.quads_for_pattern(None, NamedNode(RELS.hasGrandparent), None, DefaultGraph())
+    has_grandparent_predicates = s.quads_for_pattern(
+        None, NamedNode(RELS.hasGrandparent), None, DefaultGraph()
+    )
     for _ in has_grandparent_predicates:
         cnt += 1
     assert cnt == 0

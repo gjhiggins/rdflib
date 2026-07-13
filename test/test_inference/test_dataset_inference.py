@@ -6,6 +6,7 @@ from rdflib.namespace import RDF
 
 try:
     from rdflib.graph import ConjunctiveGraph
+
     # ConjunctiveGraph is going away in rdflib 8.0
 except ImportError:
     ConjunctiveGraph = Dataset
