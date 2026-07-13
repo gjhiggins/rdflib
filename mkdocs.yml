@@ -17,6 +17,7 @@ nav:
     - Creating RDF triples: intro_to_creating_rdf.md
     - Navigating Graphs: intro_to_graphs.md
     - Querying with SPARQL: intro_to_sparql.md
+    - Inference & Expansion of graphs: inference.md
     - Utilities functions: utilities.md
 
     - In depth:
