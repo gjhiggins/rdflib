@@ -138,7 +138,6 @@ def test_basic_inference_owlrl():
     assert cnt == 0
 
     # expand the graph with OWL-RL semantics
-
     g.expand("OWLRL")
 
     # count no. rels:Person class instances, after inferencing, should find 15 results
