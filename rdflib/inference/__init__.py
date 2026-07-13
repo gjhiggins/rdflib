@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
 #
 """
+This module was originally a stand-alone Package on GitHub and PyPI - OWL-RL (https://github.com/RDFLib/OWL-RL/ &
+https://pypi.org/project/owlrl). It has been subsumed into RDFLib in 2026 as it has been stable for a long time and
+including it will make accessing its funtionality easier.
+
+To use this module, you can use the Graph() object's new `exand()` function and specify either "RDFS" or "OWLRL" as
+the `expansion_logic` parameter.
+
+Original documentation:
+
 This module is a brute force implementation of the 'finite' version of `RDFS semantics`_ and of `OWL 2 RL`_ on the top
 of RDFLib (with some caveats, see below). Some extensions to these are also implemented.
 
@@ -245,7 +254,7 @@ def interpret_owl_imports(iformat, graph):
         for t in all_imports:
             graph.remove(t)
         # 3. get all the imported vocabularies and import them
-        for (s, p, uri) in all_imports:
+        for s, p, uri in all_imports:
             # this is not 100% kosher. The expected object for an import statement is a URI. However,
             # on local usage, a string would also make sense, so I do that one, too
             if isinstance(uri, Literal):
@@ -373,7 +382,6 @@ class DeductiveClosure:
                 raise ValueError("The closure type argument must be a class reference")
             else:
 
-
                 self.closure_class = closure_class
         self.axiomatic_triples = axiomatic_triples
         self.datatype_axioms = datatype_axioms
@@ -398,7 +406,7 @@ class DeductiveClosure:
                 self.axiomatic_triples,
                 self.datatype_axioms,
                 rdfs=self.rdfs_closure,
-                destination=destination
+                destination=destination,
             ).closure()
 
         if (not DeductiveClosure.improved_datatype_generic) and self.improved_datatypes:

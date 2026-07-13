@@ -92,7 +92,14 @@ class Core:
     """
 
     # noinspection PyUnusedLocal
-    def __init__(self, graph: Union[DataGraph,Graph,Any], axioms, daxioms, rdfs: bool = False, destination: Union[DataGraph,Graph,Any] = None):
+    def __init__(
+        self,
+        graph: Union[DataGraph, Graph, Any],
+        axioms,
+        daxioms,
+        rdfs: bool = False,
+        destination: Union[DataGraph, Graph, Any] = None,
+    ):
         """
         The parameter descriptions here are from the old documentation.
 
@@ -142,7 +149,9 @@ class Core:
                 source_store = self.graph.store
                 dest_store = destination.store
                 if source_store is not dest_store:
-                    raise ValueError("The source and destination graphs must share the same backing store")
+                    raise ValueError(
+                        "The source and destination graphs must share the same backing store"
+                    )
                 self.destination = destination
 
         # Calculate the maximum 'n' value for the '_i' type predicates (see Horst's paper)
@@ -152,7 +161,7 @@ class Core:
         while cont:
             cont = False
             predicate = RDF[("_%d" % n)]
-            for (s, p, o) in graph.triples((None, predicate, None)):
+            for s, p, o in graph.triples((None, predicate, None)):
                 # there is at least one if we got here
                 maxnum = n
                 n += 1
@@ -266,7 +275,9 @@ class Core:
         :type t: tuple
         """
         (s, p, o) = t
-        if not isinstance(p, Literal) and not (t in self.destination or t in self.graph):
+        if not isinstance(p, Literal) and not (
+            t in self.destination or t in self.graph
+        ):
             if self._debug or offlineGeneration:
                 print(t)
             self.added_triples.add(t)
@@ -336,7 +347,9 @@ class Core:
         if self.error_messages:
             # I am not sure this is the right vocabulary to use for this purpose, but I haven't found anything!
             # I could, of course, come up with my own, but I am not sure that would be kosher...
-            self.destination.bind("err", "http://www.daml.org/2002/03/agents/agent-ont#")
+            self.destination.bind(
+                "err", "http://www.daml.org/2002/03/agents/agent-ont#"
+            )
             for m in self.error_messages:
                 message = BNode()
                 self.destination.add((message, RDF.type, ERRNS.ErrorMessage))

@@ -138,6 +138,8 @@ def _strToDecimal(v):
 _hexc = ["A", "B", "C", "D", "E", "F", "a", "b", "c", "d", "e", "f"]
 # set of numerals
 _numb = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+
+
 # noinspection PyPep8Naming
 def _strToAnyURI(v):
     """Rudimentary test for the AnyURI value. If it is a relative URI, then some tests are done to filter out

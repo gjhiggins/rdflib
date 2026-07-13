@@ -78,7 +78,14 @@ class RDFS_OWLRL_Semantics(RDFS_Semantics, OWLRL_Semantics):
         (OWL.DataRange, OWL.equivalentClass, RDFS.Datatype),
     ]
 
-    def __init__(self, graph: Graph, axioms, daxioms, rdfs: bool = True, destination: Union[None, Graph] = None):
+    def __init__(
+        self,
+        graph: Graph,
+        axioms,
+        daxioms,
+        rdfs: bool = True,
+        destination: Union[None, Graph] = None,
+    ):
         """
         @param graph: the RDF graph to be extended
         @type graph: rdflib.Graph
@@ -91,8 +98,12 @@ class RDFS_OWLRL_Semantics(RDFS_Semantics, OWLRL_Semantics):
         @param destination: the destination graph to which the results are written. If None, use the source graph.
         @type destination: rdflib.Graph
         """
-        OWLRL_Semantics.__init__(self, graph, axioms, daxioms, rdfs=rdfs, destination=destination)
-        RDFS_Semantics.__init__(self, graph, axioms, daxioms, rdfs=rdfs, destination=destination)
+        OWLRL_Semantics.__init__(
+            self, graph, axioms, daxioms, rdfs=rdfs, destination=destination
+        )
+        RDFS_Semantics.__init__(
+            self, graph, axioms, daxioms, rdfs=rdfs, destination=destination
+        )
         self.rdfs = True
 
     # noinspection PyMethodMayBeStatic

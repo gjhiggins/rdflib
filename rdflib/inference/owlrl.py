@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 """
 This module is a **brute force** implementation of the OWL 2 RL profile.
@@ -56,8 +55,11 @@ OWLRL_Annotation_properties = [
     OWL.incompatibleWith,
 ]
 
-from .datatypehandling import AltXSDToPYTHON
-from .xsddatatypes import OWL_Datatype_Subsumptions, OWL_RL_Datatypes
+from rdflib.inference.datatypehandling import AltXSDToPYTHON  # noqa: E402
+from rdflib.inference.xsddatatypes import (
+    OWL_Datatype_Subsumptions,
+    OWL_RL_Datatypes,
+)  # noqa: E402
 
 identity = lambda v: v
 
@@ -100,7 +102,14 @@ class OWLRL_Semantics(Core):
     :type rdfs: bool
     """
 
-    def __init__(self, graph: Graph, axioms, daxioms, rdfs: bool = False, destination: Union[None, Graph] = None):
+    def __init__(
+        self,
+        graph: Graph,
+        axioms,
+        daxioms,
+        rdfs: bool = False,
+        destination: Union[None, Graph] = None,
+    ):
         """
         @param graph: the RDF graph to be extended
         @type graph: rdflib.Graph
@@ -180,6 +189,7 @@ class OWLRL_Semantics(Core):
             may not cover all the edge cases of OWL RL. Especially, dt-not-type has not (yet?) been implemented (I wonder
             whether RDFLib should not raise exception for those anyway...
         """
+
         # noinspection PyShadowingNames
         def _add_to_explicit(s, o):
             explicit[s].add(o)
@@ -240,7 +250,7 @@ class OWLRL_Semantics(Core):
         # Other datatype definitions can come from explicitly defining some nodes as datatypes (though rarely used,
         # it is perfectly possible...
         # there may be explicit relationships set in the graph, too!
-        for (s, p, o) in self.graph.triples((None, RDF.type, None)):
+        for s, p, o in self.graph.triples((None, RDF.type, None)):
             if o in OWL_RL_Datatypes:
                 used_datatypes.add(o)
                 if s not in implicit:
@@ -248,7 +258,7 @@ class OWLRL_Semantics(Core):
 
         # Finally, there may be sameAs statements that bind nodes to some of the existing ones. This does not introduce
         # new datatypes, so the used_datatypes array does not get extended
-        for (s, p, o) in self.graph.triples((None, OWL.sameAs, None)):
+        for s, p, o in self.graph.triples((None, OWL.sameAs, None)):
             if o in implicit:
                 _add_to_explicit(s, implicit[o])
             # note that s in implicit would mean that the original graph has
@@ -341,19 +351,20 @@ class OWLRL_Semantics(Core):
     def _property_chain(self, p, x):
         """
         Implementation of the property chain axiom, invoked from inside the property axiom handler. This is the
-        implementation of rule prp-spo2, taken aside for an easier readability of the code."""
+        implementation of rule prp-spo2, taken aside for an easier readability of the code.
+        """
         chain = self._list(x)
         # The complication is that, at each step of the chain, there may be spawns, leading to a multitude
         # of 'sub' chains:-(
         if len(chain) > 0:
-            for (u1, _y, _z) in self.graph.triples((None, chain[0], None)):
+            for u1, _y, _z in self.graph.triples((None, chain[0], None)):
                 # At least the chain can be started, because the leftmost property has at least
                 # one element in its extension
                 finalList = [(u1, _z)]
                 chainExists = True
                 for pi in chain[1:]:
                     newList = []
-                    for (_u, ui) in finalList:
+                    for _u, ui in finalList:
                         for u in self.graph.objects(ui, pi):
                             # what is stored is only last entry with u1, the intermediate results
                             # are not of interest
@@ -367,7 +378,7 @@ class OWLRL_Semantics(Core):
                     else:
                         finalList = newList
                 if chainExists:
-                    for (_u, un) in finalList:
+                    for _u, un in finalList:
                         self.store_triple((u1, p, un))
 
     def _equality(self, triple, cycle_num):
@@ -932,12 +943,12 @@ class OWLRL_Semantics(Core):
         elif p == RDFS.domain:
             # RULE scm-dom1
             pp, c1 = s, o
-            for (_x, _y, c2) in self.graph.triples((c1, RDFS.subClassOf, None)):
+            for _x, _y, c2 in self.graph.triples((c1, RDFS.subClassOf, None)):
                 if c1 != c2:
                     self.store_triple((pp, RDFS.domain, c2))
             # RULE scm-dom1
             p2, c = s, o
-            for (p1, _x, _y) in self.graph.triples((None, RDFS.subPropertyOf, p2)):
+            for p1, _x, _y in self.graph.triples((None, RDFS.subPropertyOf, p2)):
                 if p1 != p2:
                     self.store_triple((p1, RDFS.domain, c))
 
@@ -945,12 +956,12 @@ class OWLRL_Semantics(Core):
         elif p == RDFS.range:
             # RULE scm-rng1
             pp, c1 = s, o
-            for (_x, _y, c2) in self.graph.triples((c1, RDFS.subClassOf, None)):
+            for _x, _y, c2 in self.graph.triples((c1, RDFS.subClassOf, None)):
                 if c1 != c2:
                     self.store_triple((pp, RDFS.range, c2))
             # RULE scm-rng1
             p2, c = s, o
-            for (p1, _x, _y) in self.graph.triples((None, RDFS.subPropertyOf, p2)):
+            for p1, _x, _y in self.graph.triples((None, RDFS.subPropertyOf, p2)):
                 if p1 != p2:
                     self.store_triple((p1, RDFS.range, c))
 

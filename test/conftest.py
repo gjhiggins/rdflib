@@ -5,8 +5,7 @@ from contextlib import ExitStack
 
 import pytest
 
-# This is here so that asserts from these modules are formatted for human
-# readibility.
+# This is here so that asserts from these modules are formatted for human readability
 pytest.register_assert_rewrite("test.utils")
 
 from pathlib import Path

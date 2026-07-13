@@ -233,7 +233,7 @@ def extract_faceted_datatypes(core, graph: Graph):
                         elif len(rlists) > 0:
                             final_facets = []
                             for r in graph.items(rlists[0]):
-                                for (facet, lit) in graph.predicate_objects(r):
+                                for facet, lit in graph.predicate_objects(r):
                                     if isinstance(lit, rdflibLiteral):
                                         # the python value of the literal should be extracted
                                         # note that this call may lead to an exception, but that is fine,
@@ -364,7 +364,7 @@ class RestrictedDatatype(RestrictedDatatypeCore):
         self.minLength = None
         self.pattern = []
         self.langRange = []
-        for (facet, value) in facets:
+        for facet, value in facets:
             if facet == XSD.minInclusive and (
                 self.minInclusive is None or self.minInclusive < value
             ):

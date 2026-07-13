@@ -30,7 +30,6 @@ __license__ = "W3C® SOFTWARE NOTICE AND LICENSE, http://www.w3.org/Consortium/L
 from itertools import product
 from typing import Union
 
-import rdflib
 from rdflib import Graph, Literal
 from rdflib.inference.axiomatictriples import (
     RDFS_Axiomatic_Triples,
@@ -40,6 +39,7 @@ from rdflib.inference.closure import Core
 from rdflib.namespace import RDF, RDFS
 
 ######################################################################################################
+
 
 # RDFS Semantics class
 # noinspection PyPep8Naming
@@ -71,7 +71,14 @@ class RDFS_Semantics(Core):
     :type rdfs: bool
     """
 
-    def __init__(self, graph: Graph, axioms, daxioms, rdfs: bool = False, destination: Union[None, Graph] = None):
+    def __init__(
+        self,
+        graph: Graph,
+        axioms,
+        daxioms,
+        rdfs: bool = False,
+        destination: Union[None, Graph] = None,
+    ):
         """
         @param graph: the RDF graph to be extended
         @type graph: rdflib.Graph
@@ -142,7 +149,7 @@ class RDFS_Semantics(Core):
             # corresponding literals, and then let the usual rules take
             # effect. In RDFS this is not possible, so the sameAs rule is,
             # essentially replicated...
-            for (s, p, o) in self.graph.triples((None, None, lt1)):
+            for s, p, o in self.graph.triples((None, None, lt1)):
                 self.destination.add((s, p, lt2))
 
     def rules(self, t, cycle_num):
@@ -205,6 +212,7 @@ class RDFS_Semantics(Core):
         Get all literals defined in the graph.
         """
         return set(
-            o for s, p, o in self.graph.triples((None, None, None))
+            o
+            for s, p, o in self.graph.triples((None, None, None))
             if isinstance(o, Literal)
         )

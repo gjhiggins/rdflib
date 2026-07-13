@@ -113,7 +113,14 @@ class OWLRL_Extension(RDFS_OWLRL_Semantics):
         (OWL.hasSelf, RDFS.domain, RDF.Property),
     ]
 
-    def __init__(self, graph: Graph, axioms, daxioms, rdfs: bool = False, destination: Union[None, Graph] = None):
+    def __init__(
+        self,
+        graph: Graph,
+        axioms,
+        daxioms,
+        rdfs: bool = False,
+        destination: Union[None, Graph] = None,
+    ):
         """
         @param graph: the RDF graph to be extended
         @type graph: rdflib.Graph
@@ -126,7 +133,9 @@ class OWLRL_Extension(RDFS_OWLRL_Semantics):
         @param destination: the destination graph to which the results are written. If None, use the source graph.
         @type destination: rdflib.Graph
         """
-        RDFS_OWLRL_Semantics.__init__(self, graph, axioms, daxioms, rdfs=rdfs, destination=destination)
+        RDFS_OWLRL_Semantics.__init__(
+            self, graph, axioms, daxioms, rdfs=rdfs, destination=destination
+        )
         self.rdfs = rdfs
         self.add_new_datatype(
             OWL.rational,
@@ -285,7 +294,14 @@ class OWLRL_Extension_Trimming(OWLRL_Extension):
     :type rdfs: bool
     """
 
-    def __init__(self, graph: Graph, axioms, daxioms, rdfs: bool = False, destination: Union[None, Graph] = None):
+    def __init__(
+        self,
+        graph: Graph,
+        axioms,
+        daxioms,
+        rdfs: bool = False,
+        destination: Union[None, Graph] = None,
+    ):
         """
         @param graph: the RDF graph to be extended
         @type graph: rdflib.Graph
@@ -298,7 +314,9 @@ class OWLRL_Extension_Trimming(OWLRL_Extension):
         @param destination: the destination graph to which the results are written. If None, use the source graph.
         @type destination: rdflib.Graph
         """
-        OWLRL_Extension.__init__(self, graph, axioms, daxioms, rdfs=rdfs, destination=destination)
+        OWLRL_Extension.__init__(
+            self, graph, axioms, daxioms, rdfs=rdfs, destination=destination
+        )
 
     def post_process(self):
         """
