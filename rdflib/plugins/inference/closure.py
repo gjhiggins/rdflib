@@ -29,8 +29,8 @@ from typing import Any, Union
 
 import rdflib
 from rdflib import BNode, Dataset, Graph, Literal
-from rdflib.inference.graphabstraction import DataGraph
-from rdflib.inference.namespaces import ERRNS
+from rdflib.plugins.inference.graphabstraction import DataGraph
+from rdflib.plugins.inference.namespaces import ERRNS
 from rdflib.namespace import RDF
 
 try:

@@ -59,7 +59,7 @@ from functools import reduce
 
 from rdflib import Graph
 from rdflib import Literal as rdflibLiteral
-from rdflib.inference.datatypehandling import AltXSDToPYTHON
+from rdflib.plugins.inference.datatypehandling import AltXSDToPYTHON
 from rdflib.namespace import OWL, RDF, RDFS, XSD
 
 # Constant for datatypes using min, max (inclusive and exclusive):

@@ -1,7 +1,8 @@
 from pathlib import Path
 
 from rdflib import Dataset, Namespace, URIRef
-from rdflib.inference import DeductiveClosure, OWLRL_Semantics
+from rdflib.plugins.inference import DeductiveClosure
+from rdflib.plugins.inference.owlrl import OWLRL_Semantics
 from rdflib.namespace import RDF
 
 try:
@@ -12,7 +13,7 @@ except ImportError:
     ConjunctiveGraph = Dataset
 
 
-import rdflib.inference
+import rdflib.plugins.inference
 
 RELS = Namespace("http://example.org/relatives#")
 

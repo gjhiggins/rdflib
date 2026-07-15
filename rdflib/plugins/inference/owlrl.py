@@ -35,12 +35,12 @@ from typing import Union
 
 import rdflib
 from rdflib import BNode, Graph
-from rdflib.inference.axiomatictriples import (
+from rdflib.plugins.inference.axiomatictriples import (
     OWLRL_Axiomatic_Triples,
     OWLRL_D_Axiomatic_Triples,
     OWLRL_Datatypes_Disjointness,
 )
-from rdflib.inference.closure import Core
+from rdflib.plugins.inference.closure import Core
 from rdflib.namespace import OWL, RDF, RDFS
 
 OWLRL_Annotation_properties = [
@@ -55,8 +55,8 @@ OWLRL_Annotation_properties = [
     OWL.incompatibleWith,
 ]
 
-from rdflib.inference.datatypehandling import AltXSDToPYTHON  # noqa: E402
-from rdflib.inference.xsddatatypes import (
+from rdflib.plugins.inference.datatypehandling import AltXSDToPYTHON  # noqa: E402
+from rdflib.plugins.inference.xsddatatypes import (
     OWL_Datatype_Subsumptions,
     OWL_RL_Datatypes,
 )  # noqa: E402

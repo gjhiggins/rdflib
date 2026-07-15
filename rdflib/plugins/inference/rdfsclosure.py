@@ -31,11 +31,11 @@ from itertools import product
 from typing import Union
 
 from rdflib import Graph, Literal
-from rdflib.inference.axiomatictriples import (
+from rdflib.plugins.inference.axiomatictriples import (
     RDFS_Axiomatic_Triples,
     RDFS_D_Axiomatic_Triples,
 )
-from rdflib.inference.closure import Core
+from rdflib.plugins.inference.closure import Core
 from rdflib.namespace import RDF, RDFS
 
 ######################################################################################################

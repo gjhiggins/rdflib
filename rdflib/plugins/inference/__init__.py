@@ -174,11 +174,11 @@ from typing import Union
 
 # noinspection PyPackageRequirements,PyPackageRequirements,PyPackageRequirements
 from rdflib import Graph, Literal
-from rdflib.inference import closure, datatypehandling
-from rdflib.inference.combinedclosure import RDFS_OWLRL_Semantics
-from rdflib.inference.owlrl import OWLRL_Semantics
-from rdflib.inference.owlrlextras import OWLRL_Extension, OWLRL_Extension_Trimming
-from rdflib.inference.rdfsclosure import RDFS_Semantics
+from rdflib.plugins.inference import closure, datatypehandling
+from rdflib.plugins.inference.combinedclosure import RDFS_OWLRL_Semantics
+from rdflib.plugins.inference.owlrl import OWLRL_Semantics
+from rdflib.plugins.inference.owlrlextras import OWLRL_Extension, OWLRL_Extension_Trimming
+from rdflib.plugins.inference.rdfsclosure import RDFS_Semantics
 from rdflib.namespace import OWL
 
 RDFXML = "xml"

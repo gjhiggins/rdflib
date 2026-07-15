@@ -32,8 +32,8 @@ __license__ = "W3C® SOFTWARE NOTICE AND LICENSE, http://www.w3.org/Consortium/L
 from typing import Union
 
 from rdflib import Graph
-from rdflib.inference.owlrl import OWLRL_Semantics
-from rdflib.inference.rdfsclosure import RDFS_Semantics
+from rdflib.plugins.inference.owlrl import OWLRL_Semantics
+from rdflib.plugins.inference.rdfsclosure import RDFS_Semantics
 from rdflib.namespace import OWL, RDFS
 
 ######################################################################################################

@@ -45,11 +45,11 @@ from typing import Union
 from rdflib import Graph
 
 # noinspection PyPep8Naming
-from rdflib.inference.combinedclosure import RDFS_OWLRL_Semantics
-from rdflib.inference.datatypehandling import AltXSDToPYTHON
-from rdflib.inference.owlrl import OWLRL_Annotation_properties
-from rdflib.inference.restricteddatatype import extract_faceted_datatypes
-from rdflib.inference.xsddatatypes import OWL_Datatype_Subsumptions, OWL_RL_Datatypes
+from rdflib.plugins.inference.combinedclosure import RDFS_OWLRL_Semantics
+from rdflib.plugins.inference.datatypehandling import AltXSDToPYTHON
+from rdflib.plugins.inference.owlrl import OWLRL_Annotation_properties
+from rdflib.plugins.inference.restricteddatatype import extract_faceted_datatypes
+from rdflib.plugins.inference.xsddatatypes import OWL_Datatype_Subsumptions, OWL_RL_Datatypes
 from rdflib.namespace import OWL, RDF, RDFS, XSD
 
 #######################################################################################################################
