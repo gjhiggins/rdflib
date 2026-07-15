@@ -36,6 +36,7 @@ ALLOWED_GRAPH_TYPES = Union[rdf_Graph, rdf_Dataset, ox_Store]
 
 # mypy: disable_error_code = "attr-defined, assignment, no-redef, misc"
 
+
 class DataGraph:
 
     is_oxigraph: bool

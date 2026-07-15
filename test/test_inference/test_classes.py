@@ -10,8 +10,8 @@ from unittest import mock
 
 from rdflib import OWL, RDF, Graph, Literal
 from rdflib.plugins.inference import DeductiveClosure
-from rdflib.plugins.inference.owlrl import OWLRL_Semantics
 from rdflib.plugins.inference.namespaces import ERRNS, T
+from rdflib.plugins.inference.owlrl import OWLRL_Semantics
 
 
 def test_cls_maxc1():

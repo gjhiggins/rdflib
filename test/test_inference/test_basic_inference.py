@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from rdflib import Graph, Namespace, URIRef
+from rdflib import Graph, Namespace
+from rdflib.namespace import RDF
 from rdflib.plugins.inference import DeductiveClosure
 from rdflib.plugins.inference.owlrl import OWLRL_Semantics
-from rdflib.namespace import RDF
 
 RELS = Namespace("http://example.org/relatives#")
 

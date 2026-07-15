@@ -4,9 +4,8 @@ Unit tests for RDFS closure.
 
 from rdflib import RDF, XSD, Graph, Literal
 from rdflib.plugins.inference import DeductiveClosure
-from rdflib.plugins.inference.owlrl import OWLRL_Semantics
-from rdflib.plugins.inference.rdfsclosure import RDFS_Semantics
 from rdflib.plugins.inference.namespaces import T
+from rdflib.plugins.inference.rdfsclosure import RDFS_Semantics
 
 
 def test_one_time_rules():

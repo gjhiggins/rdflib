@@ -45,6 +45,7 @@ from rdflib.term import Literal, XSDToPython, _toPythonMapping
 
 # mypy: disable_error_code = "arg-type, type-arg, valid-type, operator"
 
+
 # noinspection PyMissingConstructor,PyPep8Naming
 class _namelessTZ(datetime.tzinfo):
     """

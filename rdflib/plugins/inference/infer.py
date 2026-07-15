@@ -14,6 +14,7 @@ from rdflib.term import Identifier, Variable
 
 # ruff: noqa: N803
 
+
 class OWLRLProcessor(rdflib.query.Processor):
     def __init__(self, graph: Graph):
         self.graph = graph

@@ -44,6 +44,7 @@ from rdflib.plugins.inference.closure import Core
 
 # mypy: disable_error_code = "valid-type, union-attr"
 
+
 # RDFS Semantics class
 # noinspection PyPep8Naming
 class RDFS_Semantics(Core):

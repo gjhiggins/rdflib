@@ -40,6 +40,7 @@ from rdflib.plugins.inference.rdfsclosure import RDFS_Semantics
 
 # ruff: noqa: N801
 
+
 # noinspection PyPep8Naming
 class RDFS_OWLRL_Semantics(RDFS_Semantics, OWLRL_Semantics):
     """

@@ -8,8 +8,8 @@ https://www.w3.org/TR/owl2-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_
 
 from rdflib import OWL, RDF, Graph, Literal
 from rdflib.plugins.inference import DeductiveClosure
-from rdflib.plugins.inference.owlrl import OWLRL_Semantics
 from rdflib.plugins.inference.namespaces import ERRNS, T
+from rdflib.plugins.inference.owlrl import OWLRL_Semantics
 
 
 def test_cax_dw():

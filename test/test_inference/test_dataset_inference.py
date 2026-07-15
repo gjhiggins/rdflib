@@ -1,19 +1,17 @@
 from pathlib import Path
 
 from rdflib import Dataset, Namespace, URIRef
+from rdflib.namespace import RDF
 from rdflib.plugins.inference import DeductiveClosure
 from rdflib.plugins.inference.owlrl import OWLRL_Semantics
-from rdflib.namespace import RDF
 
 try:
     from rdflib.graph import ConjunctiveGraph
 
     # ConjunctiveGraph is going away in rdflib 8.0
 except ImportError:
-    ConjunctiveGraph = Dataset
+    ConjunctiveGraph = Dataset  # type: ignore[assignment, misc]
 
-
-import rdflib.plugins.inference
 
 RELS = Namespace("http://example.org/relatives#")
 
