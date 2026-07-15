@@ -1,22 +1,12 @@
+from __future__ import annotations
+
 try:
-    from pyoxigraph import (
-        BlankNode as ox_BlankNode,
-    )
-    from pyoxigraph import (
-        DefaultGraph as ox_DefaultGraph,
-    )
-    from pyoxigraph import (
-        Literal as ox_Literal,
-    )
-    from pyoxigraph import (
-        NamedNode as ox_NamedNode,
-    )
-    from pyoxigraph import (
-        Quad as ox_Quad,
-    )
-    from pyoxigraph import (
-        Store as ox_Store,
-    )
+    from pyoxigraph import BlankNode as ox_BlankNode
+    from pyoxigraph import DefaultGraph as ox_DefaultGraph
+    from pyoxigraph import Literal as ox_Literal
+    from pyoxigraph import NamedNode as ox_NamedNode
+    from pyoxigraph import Quad as ox_Quad
+    from pyoxigraph import Store as ox_Store
 
     has_oxigraph = True
 except ImportError:
@@ -35,21 +25,16 @@ from typing import Any, Tuple, Union
 from rdflib import Dataset as rdf_Dataset
 from rdflib import Graph as rdf_Graph
 from rdflib.namespace import RDF
-from rdflib.term import (
-    BNode as rdf_BNode,
-)
-from rdflib.term import (
-    IdentifiedNode as rdf_IdentifiedNode,
-)
-from rdflib.term import (
-    Literal as rdf_Literal,
-)
-from rdflib.term import (
-    URIRef as rdf_URIRef,
-)
+from rdflib.term import BNode as rdf_BNode
+from rdflib.term import IdentifiedNode as rdf_IdentifiedNode
+from rdflib.term import Literal as rdf_Literal
+from rdflib.term import URIRef as rdf_URIRef
 
 ALLOWED_GRAPH_TYPES = Union[rdf_Graph, rdf_Dataset, ox_Store]
 
+# ruff: noqa: N806 N816
+
+# mypy: disable_error_code = "attr-defined, assignment, no-redef, misc"
 
 class DataGraph:
 
@@ -93,7 +78,7 @@ class DataGraph:
             if isinstance(locked_context, rdf_Graph):
                 self.locked_context = locked_context
             elif isinstance(locked_context, str):
-                self.locked_context = self.impl.get_context(rdf_URIRef(locked_context))
+                self.locked_context = self.impl.get_context(rdf_URIRef(locked_context))  # type: ignore[union-attr]
             else:
                 self.locked_context = None
         return self
@@ -193,20 +178,20 @@ class DataGraph:
             # Technically a subject can never be a Literal
             # in Oxigraph, but this is here for completeness
             if s.language is not None:
-                out_s = rdf_Literal(s.value, lang=s.language)
+                out_s = rdf_Literal(s.value, lang=s.language)  # type: ignore[assignment]
             else:
                 data_type = s.datatype
                 if data_type is not None:
                     data_type = rdf_URIRef(data_type.value)
-                out_s = rdf_Literal(s.value, datatype=data_type)
+                out_s = rdf_Literal(s.value, datatype=data_type)  # type: ignore[assignment]
         else:
-            out_s = rdf_URIRef(s.value)
+            out_s = rdf_URIRef(s.value)  # type: ignore[assignment]
         if p is None:
             out_p = None
         elif isinstance(p, ox_BlankNode):
             out_p = rdf_BNode(p.value)
         else:
-            out_p = rdf_URIRef(p.value)
+            out_p = rdf_URIRef(p.value)  # type: ignore[assignment]
         if o is None:
             out_o = None
         elif isinstance(o, ox_Literal):
@@ -218,9 +203,9 @@ class DataGraph:
                     data_type = rdf_URIRef(data_type.value)
                 out_o = rdf_Literal(o.value, datatype=data_type)
         elif isinstance(o, ox_BlankNode):
-            out_o = rdf_BNode(o.value)
+            out_o = rdf_BNode(o.value)  # type: ignore[assignment]
         else:
-            out_o = rdf_URIRef(o.value)
+            out_o = rdf_URIRef(o.value)  # type: ignore[assignment]
         if g is None:
             out_g = None
         elif isinstance(g, ox_DefaultGraph):
@@ -572,7 +557,7 @@ class DataGraph:
             for t in self.impl.objects(subject, predicate):
                 yield t
 
-    def get_context(self, identifier: Union[rdf_URIRef, str]) -> "DataGraph":
+    def get_context(self, identifier: Union[rdf_URIRef, str]) -> DataGraph:
         if self.is_oxigraph:
             return DataGraph(self.impl, str(identifier))
         else:

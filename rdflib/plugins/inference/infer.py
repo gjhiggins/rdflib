@@ -1,23 +1,18 @@
-"""
-Code for tying OWLRL/RDFS Engine into RDFLib
-
-These are automatically registered with RDFLib
-
-"""
 from __future__ import annotations
 
-from collections.abc import Mapping
-from typing import Any, Optional, Union, Literal as TypingLiteral
 import copy
+from collections.abc import Mapping
+from typing import Any, Optional, Union
+
 import rdflib
-from rdflib import Namespace
 from rdflib.graph import Graph
-from rdflib.query import Result
-from rdflib.term import BNode, Identifier, URIRef, Variable
 from rdflib.plugins.inference import DeductiveClosure
 from rdflib.plugins.inference.owlrl import OWLRL_Semantics
 from rdflib.plugins.inference.rdfsclosure import RDFS_Semantics
+from rdflib.query import Result
+from rdflib.term import Identifier, Variable
 
+# ruff: noqa: N803
 
 class OWLRLProcessor(rdflib.query.Processor):
     def __init__(self, graph: Graph):
@@ -130,5 +125,4 @@ class RDFSUpdateProcessor(rdflib.query.UpdateProcessor):
 
 class RuleResult(Result):
     def __init__(self, res: Mapping[str, Any]):
-        # super().__init__(res)
         self.graph = res.get("graph") or Graph()

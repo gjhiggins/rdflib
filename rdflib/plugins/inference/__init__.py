@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 """
 This module was originally a stand-alone Package on GitHub and PyPI - OWL-RL (https://github.com/RDFLib/OWL-RL/ &
@@ -164,6 +163,8 @@ which will result in a proper graph expansion except for the datatype specific c
 """
 
 # Examples: LangString is disjoint from String
+from __future__ import annotations
+
 from rdflib import __version__
 
 __author__ = "Ivan Herman"
@@ -174,12 +175,17 @@ from typing import Union
 
 # noinspection PyPackageRequirements,PyPackageRequirements,PyPackageRequirements
 from rdflib import Graph, Literal
+from rdflib.namespace import OWL
 from rdflib.plugins.inference import closure, datatypehandling
 from rdflib.plugins.inference.combinedclosure import RDFS_OWLRL_Semantics
 from rdflib.plugins.inference.owlrl import OWLRL_Semantics
-from rdflib.plugins.inference.owlrlextras import OWLRL_Extension, OWLRL_Extension_Trimming
+from rdflib.plugins.inference.owlrlextras import (
+    OWLRL_Extension,
+    OWLRL_Extension_Trimming,
+)
 from rdflib.plugins.inference.rdfsclosure import RDFS_Semantics
-from rdflib.namespace import OWL
+
+# ruff: noqa: F401 N803 N806
 
 RDFXML = "xml"
 TURTLE = "turtle"
@@ -533,7 +539,7 @@ def convert_graph(options, closureClass=None):
     iformat = "auto"
     try:
         iformat = options.iformat
-    except:
+    except Exception:
         # exception can be raised if that attribute is not used at all, true for older versions
         pass
 
@@ -541,7 +547,7 @@ def convert_graph(options, closureClass=None):
     try:
         if options.source is not None:
             options.sources.append(options.source)
-    except:
+    except Exception:
         # exception can be raised if that attribute is not used at all, true for newer versions
         pass
 
@@ -563,7 +569,7 @@ def convert_graph(options, closureClass=None):
     owlExtras = __check_yes_or_true(options.owlExtras)
     try:
         trimming = __check_yes_or_true(options.trimming)
-    except:
+    except Exception:
         trimming = False
     axioms = __check_yes_or_true(options.axioms)
     daxioms = __check_yes_or_true(options.daxioms)
