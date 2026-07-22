@@ -1,29 +1,25 @@
 ---
 # https://docs.readthedocs.io/en/stable/config-file/v2.html
 version: 2
-# NOTE: not building epub because epub does not know how to handle .ico files
-# which results in a warning which causes the build to fail due to
-# `sphinx.fail_on_warning`
-# https://github.com/sphinx-doc/sphinx/issues/10350
-formats:
-  - htmlzip
-  - pdf
+# https://docs.readthedocs.com/platform/stable/config-file/v2.html#formats
+# pdf, epub, and htmlzip output is not yet supported when using MkDocs.
+formats: all
+# https://docs.readthedocs.com/platform/stable/config-file/v2.html#uv
+python:
+   install:
+      - method: uv
+        command: sync
+        groups:
+           - docs
+        extras:
+           # rdf4j extra is needed to document the modules in rdflib.contrib.rdf4j
+           - rdf4j
 
-# https://docs.readthedocs.com/platform/stable/intro/mkdocs.html
+# https://docs.readthedocs.com/platform/stable/config-file/v2.html#configuration-file-reference
 build:
   os: "ubuntu-24.04"
   tools:
     python: "3"
-  jobs:
-    post_create_environment:
-    # Using requirements-poetry.in as requirements-poetry.txt has conflicts with
-    # the readthedocs environment.
-    - pip install -r devtools/requirements-poetry.in
-    post_install:
-    # rdf4j extra is needed to document the modules in rdflib.contrib.rdf4j
-    - poetry export --only=main --only=docs --extras=rdf4j --without-hashes -o requirements.txt
-    - pip install --no-cache-dir -r requirements.txt
-    - pip install .
 
 mkdocs:
   configuration: mkdocs.yml

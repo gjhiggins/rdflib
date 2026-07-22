@@ -9,7 +9,6 @@ on:
 env:
   FORCE_COLOR: 1
   XDG_CACHE_HOME: ${{ github.workspace }}/.var/cache
-  POETRY_CACHE_DIR: ${{ github.workspace }}/.var/cache/pypoetry
   PIP_CACHE_DIR: ${{ github.workspace }}/.var/cache/pip
 
 concurrency:
@@ -24,23 +23,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: [ubuntu-latest, macos-latest, windows-latest]
         # This is used for injecting additional tests for a specific python
         # version and OS.
         suffix: [""]
         include:
-          - python-version: "3.8"
-            os: ubuntu-latest
-            extensive-tests: true
-          - python-version: "3.8"
-            os: ubuntu-latest
-            extensive-tests: true
-            PREPARATION: "sudo apt-get install -y libxml2-dev libxslt-dev"
-            suffix: "-min"
-            TOXENV_SUFFIX: "-min"
-          - python-version: "3.9"
-            os: ubuntu-latest
           - python-version: "3.10"
             os: ubuntu-latest
             TOX_EXTRA_COMMAND: "- black --check --diff ./rdflib"
@@ -63,9 +51,9 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install poetry
+      - name: Install uv
         run: |
-          pip install -r devtools/requirements-poetry.in
+          pip install uv
       - uses: actions/setup-java@v5
         if: ${{ matrix.extensive-tests }}
         with:
@@ -139,7 +127,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install poetry
         run: |
-          pip install -r devtools/requirements-poetry.in
+          pip install uv
       - name: Install Task
         uses: go-task/setup-task@v2
         with:

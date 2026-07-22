@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: pip
     directory: "/"
     schedule:
-      interval: weekly
+      interval: monthly
     open-pull-requests-limit: 10
     # todo: change this to widen when Dependabot adds widen back to Pip ecosystem
     # see https://github.com/dependabot/dependabot-core/pull/10194
@@ -20,28 +20,31 @@ updates:
           - ">=72.0"
       # Ignore all black updates, because we use a pinned version we don't want to change
       - dependency-name: black
-      # Ignore types-setuptools patch-level updates, because they issue too many!
+      # Ditto for mypy
+      - dependency-name: mypy
+      # Ditto for ruff
+      - dependency-name: ruff
       - dependency-name: types-setuptools
         update-types: ["version-update:semver-patch"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: weekly
+      interval: monthly
   - package-ecosystem: docker
     directory: docker/latest/
     schedule:
-      interval: weekly
+      interval: monthly
   - package-ecosystem: pip
     directory: docker/latest/
     schedule:
-      interval: weekly
+      interval: monthly
     versioning-strategy: auto
   - package-ecosystem: docker
     directory: docker/unstable/
     schedule:
-      interval: weekly
+      interval: monthly
   - package-ecosystem: pip
     directory: devtools/
     schedule:
-      interval: weekly
+      interval: monthly
     versioning-strategy: auto
