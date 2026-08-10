@@ -383,11 +383,7 @@ class DataGraph:
         self, object_: Union[rdf_IdentifiedNode, rdf_Literal, None]
     ) -> Generator[
         Tuple[Union[rdf_IdentifiedNode, rdf_Literal], rdf_IdentifiedNode], None, None
-    ]:
-        if subject is not None and isinstance(subject, rdf_Literal):
-            # Oxigraph does not support literal subjects
-            # So no predicate-object pairs can be returned
-            return        
+    ]:     
         _o = self.to_ox(object_)
         if self.locked_context is not None:
             for q in self.impl.quads_for_pattern(None, None, _o, self.locked_context):
@@ -407,6 +403,10 @@ class DataGraph:
     ) -> Generator[
         Tuple[rdf_IdentifiedNode, Union[rdf_IdentifiedNode, rdf_Literal]], None, None
     ]:
+        if subject is not None and isinstance(subject, rdf_Literal):
+            # Oxigraph does not support literal subjects
+            # So no predicate-object pairs can be returned
+            return        
         _s = self.to_ox(subject)
         if self.locked_context is not None:
             for q in self.impl.quads_for_pattern(_s, None, None, self.locked_context):
