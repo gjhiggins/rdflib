@@ -626,7 +626,7 @@ class DataGraph:
             next_list = ox_BlankNode(str(list_))
         else:
             raise ValueError("List must be a URIRef, or BNode")
-        chain = set[ox_NamedNode]([next_list])
+        chain = {}
         FIRST = ox_NamedNode(RDF.first)
         REST = ox_NamedNode(RDF.rest)
         while next_list:
