@@ -322,7 +322,7 @@ class DataGraph:
         if triple[0] is not None and isinstance(triple[0], rdf_Literal):
             # Oxigraph does not support Literal in the subject position
             # So this can never match any triples in the Store.
-            return            
+            return
         ox_triples = self.convert_triple_to_oxigraph(triple)
         if isinstance(ox_triples[1], ox_BlankNode) or isinstance(
             ox_triples[1], ox_Literal
@@ -383,7 +383,7 @@ class DataGraph:
         self, object_: Union[rdf_IdentifiedNode, rdf_Literal, None]
     ) -> Generator[
         Tuple[Union[rdf_IdentifiedNode, rdf_Literal], rdf_IdentifiedNode], None, None
-    ]:     
+    ]:
         _o = self.to_ox(object_)
         if self.locked_context is not None:
             for q in self.impl.quads_for_pattern(None, None, _o, self.locked_context):
@@ -406,7 +406,7 @@ class DataGraph:
         if subject is not None and isinstance(subject, rdf_Literal):
             # Oxigraph does not support literal subjects
             # So no predicate-object pairs can be returned
-            return        
+            return
         _s = self.to_ox(subject)
         if self.locked_context is not None:
             for q in self.impl.quads_for_pattern(_s, None, None, self.locked_context):
