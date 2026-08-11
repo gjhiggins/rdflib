@@ -4,8 +4,36 @@ This module was originally a stand-alone Package on GitHub and PyPI - OWL-RL (ht
 https://pypi.org/project/owlrl). It has been subsumed into RDFLib in 2026 as it has been stable for a long time and
 including it will make accessing its funtionality easier.
 
-To use this module, you can use the Graph() object's new `exand()` function and specify either "RDFS" or "OWLRL" as
-the `expansion_logic` parameter.
+To use this module, you can call `query()` or `update()` on a `Graph` specify either "RDFS" or "OWLRL" as
+the `processor` parameter, for example:
+
+```
+# expand Graph g into new graph r
+r = g.query("", processor="owlrl")
+# combined g with r for total result
+g += r.graph
+```
+
+You can also use `update()` to directly insert results:
+
+```
+# equivalent to above
+g.update("", processor="owlrl")
+```
+
+You can add your own rules, e.g. that `hasGrandchild` is equivalent to a path of `hasChild`/`hasChild`:
+
+```
+# 
+rules = """
+        PREFIX : <http://example.org/relatives#>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+        :hasGrandchild a owl:ObjectProperty ;
+            owl:propertyChainAxiom ( :hasChild :hasChild ) .
+        """
+g.update(rules, processor="owlrl")
+```
 
 Original documentation:
 
