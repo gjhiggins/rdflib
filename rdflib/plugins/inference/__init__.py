@@ -24,17 +24,18 @@ g.update("", processor="owlrl")
 You can add your own rules, e.g. that `hasGrandchild` is equivalent to a path of `hasChild`/`hasChild`:
 
 ```
-rules = """
+rules = '''
 PREFIX : <http://example.org/relatives#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-:hasGrandchild 
+:hasGrandchild
     a owl:ObjectProperty ;
-    owl:propertyChainAxiom ( 
-        :hasChild :hasChild 
+    owl:propertyChainAxiom (
+        :hasChild
+        :hasChild
     ) ;
 .
-"""
+'''
 g.update(rules, processor="owlrl")
 ```
 
